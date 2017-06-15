@@ -1,26 +1,69 @@
 #include <iostream>
+#include <vector>
+#include <cstdlib>
 #include <string>
+#include <stdexcept>
 
 using namespace std;
 
-template <typename T>
-inline T const& Max (T const& a, T const& b)  { 
-   return a < b ? b:a; 
-} 
+template <class T>
+class Stack
+{
+  private:
+    vector<T> elements;
 
-int main () {
- 
-   int i = 39;
-   int j = 20;
-   cout << "Max(i, j): " << Max(i, j) << endl; 
+  public:
+    void push(T const &);
+    void pop();
+    T top();
+    bool empty();
+};
 
-   double f1 = 13.5; 
-   double f2 = 20.7; 
-   cout << "Max(f1, f2): " << Max(f1, f2) << endl; 
+template <class T>
+void Stack<T>::push(T const &elem) {
+    elements.push_back(elem);
+}
 
-   string s1 = "Hello"; 
-   string s2 = "World"; 
-   cout << "Max(s1, s2): " << Max(s1, s2) << endl; 
+template <class T>
+void Stack<T>::pop() {
+    if (elements.empty()) {
+        throw out_of_range("Stack<>::pop(): empty stack");
+    } else {
+        elements.pop_back();
+    }
+}
 
-   return 0;
+template <class T>
+T Stack<T>::top() {
+    if (empty()) {
+        throw out_of_range("Stack<>::top(): empty stack");
+    }
+    return elements.back();
+}
+
+template <class T>
+bool Stack<T>::empty() {
+    return elements.empty();
+}
+
+
+int main() {
+    try {
+        Stack<int> intStack;       // stack of ints
+        Stack<string> stringStack; // stack of strings
+
+        // manipulate integer stack
+        intStack.push(7);
+        cout << intStack.top() << endl;
+
+        // manipulate string stack
+        stringStack.push("hello");
+        cout << stringStack.top() << std::endl;
+        stringStack.pop();
+        stringStack.pop();
+    }
+    catch (exception const &ex) {
+        cerr << "Exception: " << ex.what() << endl;
+        return -1;
+    }
 }
