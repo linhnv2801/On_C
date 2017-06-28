@@ -1,21 +1,17 @@
-// queue::emplace
-#include <iostream>       // std::cin, std::cout
+// queue::front
+#include <iostream>       // std::cout
 #include <queue>          // std::queue
-#include <string>         // std::string, std::getline(string)
 
 int main ()
 {
-  std::queue<std::string> myqueue;
+  std::queue<int> myqueue;
 
-  myqueue.emplace ("First sentence");
-  myqueue.emplace ("Second sentence");
+  myqueue.push(77);
+  myqueue.push(16);
 
-  std::cout << "myqueue contains:\n";
-  while (!myqueue.empty())
-  {
-    std::cout << myqueue.front() << '\n';
-    myqueue.pop();
-  }
+  myqueue.front() -= myqueue.back();    // 77-16=61
+
+  std::cout << "myqueue.front() is now " << myqueue.front() << '\n';
 
   return 0;
 }
