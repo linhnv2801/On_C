@@ -1,37 +1,25 @@
-// array::begin example
+// constructing arrays
 #include <iostream>
 #include <array>
 
+// default initialization (non-local = static storage):
+std::array<int,3> global;               // zero-initialized: {0,0,0}
+
 int main ()
 {
-  std::array<int,6> myarray = { 2, 16, 77, 34, 50 };
-  myarray[5] = 60;
+  // default initialization (local = automatic storage):
+  std::array<int,3> first;              // uninitialized:    {?,?,?}
 
-  std::cout << "myarray contains:";
-  for ( auto it = myarray.begin(); it != myarray.end(); ++it )
-    std::cout << ' ' << *it;
+  // initializer-list initializations:
+  std::array<int,3> second = {10,20};   // initialized as:   {10,20,0}
+  std::array<int,3> third = {1,2,3};    // initialized as:   {1,2,3}
+
+  // copy initialization:
+  std::array<int,3> fourth = third;     // copy:             {1,2,3}
+
+  std::cout << "The contents of fourth are:";
+  for (auto x:fourth) std::cout << ' ' << x;
   std::cout << '\n';
-  
-  for ( auto it = myarray.cbegin(); it != myarray.cend(); ++it )
-  {
-    std::cout << ' ' << *it;   // cannot modify *it
-  }
-
-  std::cout << '\n';
-  
-  std::array<int,5> first = {10, 20, 30, 40, 50};
-  std::array<int,5> second = {11, 22, 33, 44, 55};
-
-  first.swap (second);
-
-  std::cout << "first:";
-  for (int& x : first) std::cout << ' ' << x;
-  std::cout << '\n';
-
-  std::cout << "second:";
-  for (int& x : second) std::cout << ' ' << x;
-  std::cout << '\n';
-
 
   return 0;
 }
