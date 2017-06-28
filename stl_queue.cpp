@@ -1,24 +1,17 @@
-// constructing queues
+// queue::back
 #include <iostream>       // std::cout
-#include <deque>          // std::deque
-#include <list>           // std::list
 #include <queue>          // std::queue
 
 int main ()
 {
-  std::deque<int> mydeck (3,100);        // deque with 3 elements
-  std::list<int> mylist (2,200);         // list with 2 elements
+  std::queue<int> myqueue;
 
-  std::queue<int> first;                 // empty queue
-  std::queue<int> second (mydeck);       // queue initialized to copy of deque
+  myqueue.push(12);
+  myqueue.push(75);   // this is now the back
 
-  std::queue<int,std::list<int> > third; // empty queue with list as underlying container
-  std::queue<int,std::list<int> > fourth (mylist);
+  myqueue.back() -= myqueue.front();
 
-  std::cout << "size of first: " << first.size() << '\n';
-  std::cout << "size of second: " << second.size() << '\n';
-  std::cout << "size of third: " << third.size() << '\n';
-  std::cout << "size of fourth: " << fourth.size() << '\n';
+  std::cout << "myqueue.back() is now " << myqueue.back() << '\n';
 
   return 0;
 }
