@@ -1,16 +1,21 @@
-// array::data
+// swap arrays
 #include <iostream>
-#include <cstring>
 #include <array>
 
 int main ()
 {
-  const char* cstr = "Test string";
-  std::array<char,12> charray;
+  std::array<int,5> first = {10, 20, 30, 40, 50};
+  std::array<int,5> second = {11, 22, 33, 44, 55};
 
-  std::memcpy (charray.data(),cstr,12);
+  first.swap (second);
 
-  std::cout << charray.data() << '\n';
+  std::cout << "first:";
+  for (int& x : first) std::cout << ' ' << x;
+  std::cout << '\n';
+
+  std::cout << "second:";
+  for (int& x : second) std::cout << ' ' << x;
+  std::cout << '\n';
 
   return 0;
 }
