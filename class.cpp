@@ -1,17 +1,21 @@
-// constructor on const object
+// const objects
 #include <iostream>
 using namespace std;
 
 class MyClass {
-  public:
     int x;
+  public:
     MyClass(int val) : x(val) {}
-    int get() {return x;}
+    const int& get() const {return x;}
 };
 
+void print (const MyClass& arg) {
+  cout << arg.get() << '\n';
+}
+
 int main() {
-  const MyClass foo(10);
-// foo.x = 20;            // not valid: x cannot be modified
-  cout << foo.x << '\n';  // ok: data member x can be read
+  MyClass foo (10);
+  print(foo);
+
   return 0;
 }
