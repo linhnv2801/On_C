@@ -1,17 +1,16 @@
-// array::cbegin example
+// array::data
 #include <iostream>
+#include <cstring>
 #include <array>
 
 int main ()
 {
-  std::array<int,5> myarray = { 2, 16, 77, 34, 50 };
+  const char* cstr = "Test string";
+  std::array<char,12> charray;
 
-  std::cout << "myarray contains:";
+  std::memcpy (charray.data(),cstr,12);
 
-  for ( auto it = myarray.cbegin(); it != myarray.cend(); ++it )
-    std::cout << ' ' << *it;   // cannot modify *it
-
-  std::cout << '\n';
+  std::cout << charray.data() << '\n';
 
   return 0;
 }
