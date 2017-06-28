@@ -1,17 +1,26 @@
-// queue::front
-#include <iostream>       // std::cout
+// queue::push/pop
+#include <iostream>       // std::cin, std::cout
 #include <queue>          // std::queue
 
 int main ()
 {
   std::queue<int> myqueue;
+  int myint;
 
-  myqueue.push(77);
-  myqueue.push(16);
+  std::cout << "Please enter some integers (enter 0 to end):\n";
 
-  myqueue.front() -= myqueue.back();    // 77-16=61
+  do {
+    std::cin >> myint;
+    myqueue.push (myint);
+  } while (myint);
 
-  std::cout << "myqueue.front() is now " << myqueue.front() << '\n';
+  std::cout << "myqueue contains: ";
+  while (!myqueue.empty())
+  {
+    std::cout << ' ' << myqueue.front();
+    myqueue.pop();
+  }
+  std::cout << '\n';
 
   return 0;
 }
