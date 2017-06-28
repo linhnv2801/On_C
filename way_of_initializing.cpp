@@ -21,6 +21,11 @@ int main ()
   a = a + b;
   result = a - c;
   cout << result;
+  
+  int foo = 0;
+  auto bar = foo;  // the same as: int bar = foo; 
+  int foo = 0;
+  decltype(foo) bar;  // the same as: int bar;  
 
   return 0;
 }
