@@ -1,21 +1,21 @@
-// stack::emplace
-#include <iostream>       // std::cin, std::cout
+// stack::empty
+#include <iostream>       // std::cout
 #include <stack>          // std::stack
-#include <string>         // std::string, std::getline(string)
 
 int main ()
 {
-  std::stack<std::string> mystack;
+  std::stack<int> mystack;
+  int sum (0);
 
-  mystack.emplace ("First sentence");
-  mystack.emplace ("Second sentence");
+  for (int i=1;i<=10;i++) mystack.push(i);
 
-  std::cout << "mystack contains:\n";
   while (!mystack.empty())
   {
-    std::cout << mystack.top() << '\n';
-    mystack.pop();
+     sum += mystack.top();
+     mystack.pop();
   }
+
+  std::cout << "total: " << sum << '\n';
 
   return 0;
 }
