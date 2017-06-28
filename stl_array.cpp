@@ -1,18 +1,16 @@
-// array::back
+// array::cbegin example
 #include <iostream>
 #include <array>
 
 int main ()
 {
-  std::array<int,3> myarray = {5, 19, 77};
+  std::array<int,5> myarray = { 2, 16, 77, 34, 50 };
 
-  std::cout << "front is: " << myarray.front() << std::endl;   // 5
-  std::cout << "back is: " << myarray.back() << std::endl;     // 77
+  std::cout << "myarray contains:";
 
-  myarray.back() = 50;
+  for ( auto it = myarray.cbegin(); it != myarray.cend(); ++it )
+    std::cout << ' ' << *it;   // cannot modify *it
 
-  std::cout << "myarray now contains:";
-  for ( int& x : myarray ) std::cout << ' ' << x;
   std::cout << '\n';
 
   return 0;
