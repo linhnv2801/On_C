@@ -1,25 +1,17 @@
-// static members in classes
+// constructor on const object
 #include <iostream>
 using namespace std;
 
-class Dummy {
+class MyClass {
   public:
-    static int n;
-    Dummy () { n++; };
+    int x;
+    MyClass(int val) : x(val) {}
+    int get() {return x;}
 };
 
-int Dummy::n=0;
-
-int main () {
-  Dummy a;
-  Dummy b[5];
-  cout << a.n << '\n';
-  cout << Dummy::n << '\n';
-  Dummy * c = new Dummy;
-  cout << Dummy::n << '\n';
-  delete c;
-  Dummy * d = new Dummy;
-  cout << Dummy::n << '\n';
-  delete d;
+int main() {
+  const MyClass foo(10);
+// foo.x = 20;            // not valid: x cannot be modified
+  cout << foo.x << '\n';  // ok: data member x can be read
   return 0;
 }
