@@ -1,21 +1,17 @@
-// stack::empty
+// stack::swap
 #include <iostream>       // std::cout
 #include <stack>          // std::stack
 
 int main ()
 {
-  std::stack<int> mystack;
-  int sum (0);
+  std::stack<int> foo,bar;
+  foo.push (10); foo.push(20); foo.push(30);
+  bar.push (111); bar.push(222);
 
-  for (int i=1;i<=10;i++) mystack.push(i);
+  foo.swap(bar);
 
-  while (!mystack.empty())
-  {
-     sum += mystack.top();
-     mystack.pop();
-  }
-
-  std::cout << "total: " << sum << '\n';
+  std::cout << "size of foo: " << foo.size() << '\n';
+  std::cout << "size of bar: " << bar.size() << '\n';
 
   return 0;
 }
