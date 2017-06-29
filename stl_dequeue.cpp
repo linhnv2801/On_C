@@ -1,25 +1,20 @@
-// deque::assign
+// deque::at
 #include <iostream>
 #include <deque>
 
 int main ()
 {
-  std::deque<int> first;
-  std::deque<int> second;
-  std::deque<int> third;
+  std::deque<unsigned> mydeque (10);   // 10 zero-initialized unsigneds
 
-  first.assign (7,100);             // 7 ints with a value of 100
+  // assign some values:
+  for (unsigned i=0; i<mydeque.size(); i++)
+    mydeque.at(i)=i;
 
-  std::deque<int>::iterator it;
-  it=first.begin()+1;
+  std::cout << "mydeque contains:";
+  for (unsigned i=0; i<mydeque.size(); i++)
+    std::cout << ' ' << mydeque.at(i);
 
-  second.assign (it,first.end()-1); // the 5 central values of first
+  std::cout << '\n';
 
-  int myints[] = {1776,7,4};
-  third.assign (myints,myints+3);   // assigning from array.
-
-  std::cout << "Size of first: " << int (first.size()) << '\n';
-  std::cout << "Size of second: " << int (second.size()) << '\n';
-  std::cout << "Size of third: " << int (third.size()) << '\n';
   return 0;
 }
