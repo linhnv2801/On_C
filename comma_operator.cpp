@@ -2,9 +2,10 @@
 int main()
 {
     /**
-	*  Commas act as separators in this line, not as an operator.
-	*  Results: a=1, b=2, c=3, i=0
-	*/
-    int a = 1, b = 2, c = 3, i = 0;
+	 *  Assigns value of b into i.
+	 *  Results: a=1, b=2, c=3, i=2
+	 */
+	int a=1, b=2, c=3;              
+	int i = (a, b);   
 }
 
