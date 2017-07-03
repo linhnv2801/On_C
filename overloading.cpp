@@ -1,43 +1,20 @@
+// overloaded functions
 #include <iostream>
+using namespace std;
 
-class Fraction
+int sum (int a, int b)
 {
-    int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }
-    int n, d;
-public:
-    Fraction(int n, int d = 1) : n(n/gcd(n, d)), d(d/gcd(n, d)) { }
-    int num() const { return n; }
-    int den() const { return d; }
-    Fraction& operator*=(const Fraction& rhs)
-    {
-        int new_n = n * rhs.n/gcd(n * rhs.n, d * rhs.d);
-        d = d * rhs.d/gcd(n * rhs.n, d * rhs.d);
-        n = new_n;
-        return *this;
-    }
-};
-std::ostream& operator<<(std::ostream& out, const Fraction& f)
-{
-   return out << f.num() << '/' << f.den() ;
+  return a+b;
 }
-bool operator==(const Fraction& lhs, const Fraction& rhs)
+
+double sum (double a, double b)
 {
-    return lhs.num() == rhs.num() && lhs.den() == rhs.den();
+  return a+b;
 }
-bool operator!=(const Fraction& lhs, const Fraction& rhs)
+
+int main ()
 {
-    return !(lhs == rhs);
-}
-Fraction operator*(Fraction lhs, const Fraction& rhs)
-{
-    return lhs *= rhs;
-}
- 
-int main()
-{
-   Fraction f1(3, 8), f2(1, 2), f3(10, 2);
-   std::cout << f1 << " * " << f2 << " = " << f1 * f2 << '\n'
-             << f2 << " * " << f3 << " = " << f2 * f3 << '\n'
-             <<  2 << " * " << f1 << " = " <<  2 * f1 << '\n';       
-    return 0;
+  cout << sum (10,20) << '\n';
+  cout << sum (1.0,1.5) << '\n';
+  return 0;
 }
