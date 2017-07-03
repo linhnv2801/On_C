@@ -1,20 +1,21 @@
-// overloaded functions
+// function template
 #include <iostream>
 using namespace std;
 
-int sum (int a, int b)
+template <class T>
+T sum (T a, T b)
 {
-  return a+b;
+  T result;
+  result = a + b;
+  return result;
 }
 
-double sum (double a, double b)
-{
-  return a+b;
-}
-
-int main ()
-{
-  cout << sum (10,20) << '\n';
-  cout << sum (1.0,1.5) << '\n';
+int main () {
+  int i=5, j=6, k;
+  double f=2.0, g=0.5, h;
+  k=sum<int>(i,j);
+  h=sum<double>(f,g);
+  cout << k << '\n';
+  cout << h << '\n';
   return 0;
 }
