@@ -12,6 +12,7 @@ public:
     // A const function that changes roll with the help of const_cast
     void fun() const
     {
+//    	this->r	roll = 5; // compile is error because in function const
         ( const_cast <student*> (this) )->roll = 5;
     }
  
