@@ -1,30 +1,31 @@
 #include <iostream>
+using namespace std;
  
-struct type {
-    type() :i(3) {}
-    void m1(int v) const {
-        // this->i = v;                 // compile error: this is a pointer to const
-        const_cast<type*>(this)->i = v; // OK as long as the type object isn't const
+class student
+{
+private:
+    int roll;
+public:
+    // constructor
+    student(int r):roll(r) {}
+ 
+    // A const function that changes roll with the help of const_cast
+    void fun() const
+    {
+        ( const_cast <student*> (this) )->roll = 5;
     }
-    int i;
+ 
+    int getRoll()  { return roll; }
 };
  
-int main() 
+int main(void)
 {
-    int i = 3;                    // i is not declared const
-    const int& cref_i = i; 
-    const_cast<int&>(cref_i) = 4; // OK: modifies i
-    std::cout << "i = " << i << '\n';
+    student s(3);
+    cout << "Old roll number: " << s.getRoll() << endl;
  
-    type t; // note, if this is const type t;, then t.m1(4); is UB
-    t.m1(4);
-    std::cout << "type::i = " << t.i << '\n';
+    s.fun();
  
-    const int j = 3; // j is declared const
-    int* pj = const_cast<int*>(&j);
-    // *pj = 4;         // undefined behavior!
+    cout << "New roll number: " << s.getRoll() << endl;
  
-    void (type::*mfp)(int) const = &type::m1; // pointer to member function
-//  const_cast<void(type::*)(int)>(mfp); // compiler error: const_cast does not
-                                         // work on function pointers
+    return 0;
 }
