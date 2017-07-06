@@ -1,32 +1,12 @@
 #include <iostream>
 using namespace std;
  
-class student
-{
-private:
-    int roll;
-public:
-    // constructor
-    student(int r):roll(r) {}
- 
-    // A const function that changes roll with the help of const_cast
-    void fun() const
-    {
-//    	this->r	roll = 5; // compile is error because in function const
-        ( const_cast <student*> (this) )->roll = 5;
-    }
- 
-    int getRoll()  { return roll; }
-};
- 
 int main(void)
 {
-    student s(3);
-    cout << "Old roll number: " << s.getRoll() << endl;
- 
-    s.fun();
- 
-    cout << "New roll number: " << s.getRoll() << endl;
- 
+    const int val = 10;
+    int *ptr = const_cast <int *>(&val);
+    *ptr += 10;
+    cout << *ptr << endl;
+    cout << "val = " << val << endl;
     return 0;
 }
