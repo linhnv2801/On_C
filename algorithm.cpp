@@ -1,13 +1,13 @@
-// all_of example
+// any_of example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::all_of
+#include <algorithm>    // std::any_of
 #include <array>        // std::array
 
 int main () {
-  std::array<int,9> foo = {3,5,7,11,13,17,19,23,25};
+  std::array<int,7> foo = {0,1,-1,3,-3,5,-5};
 
-  if ( std::all_of(foo.begin(), foo.end(), [](int i){return i%2;}) )
-    std::cout << "All the elements are odd numbers.\n";
+  if ( std::any_of(foo.begin(), foo.end(), [](int i){return i<0;}) )
+    std::cout << "There are negative elements in the range.\n";
 
   return 0;
 }
