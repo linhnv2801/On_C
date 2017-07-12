@@ -1,13 +1,30 @@
-// any_of example
+// for_each example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::any_of
-#include <array>        // std::array
+#include <algorithm>    // std::for_each
+#include <vector>       // std::vector
+
+void myfunction (int i) {  // function:
+  std::cout << ' ' << i;
+}
+
+struct myclass {           // function object type:
+  void operator() (int i) {std::cout << ' ' << i;}
+} myobject;
 
 int main () {
-  std::array<int,7> foo = {0,1,-1,3,-3,5,-5};
+  std::vector<int> myvector;
+  myvector.push_back(10);
+  myvector.push_back(20);
+  myvector.push_back(30);
 
-  if ( std::any_of(foo.begin(), foo.end(), [](int i){return i<0;}) )
-    std::cout << "There are negative elements in the range.\n";
+  std::cout << "myvector contains:";
+  for_each (myvector.begin(), myvector.end(), myfunction);
+  std::cout << '\n';
+
+  // or:
+  std::cout << "myvector contains:";
+  for_each (myvector.begin(), myvector.end(), myobject);
+  std::cout << '\n';
 
   return 0;
 }
