@@ -1,30 +1,35 @@
-// for_each example
+// adjacent_find example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::for_each
+#include <algorithm>    // std::adjacent_find
 #include <vector>       // std::vector
 
-void myfunction (int i) {  // function:
-  std::cout << ' ' << i;
+bool myfunction (int i, int j) {
+  return (i==j);
 }
 
-struct myclass {           // function object type:
-  void operator() (int i) {std::cout << ' ' << i;}
-} myobject;
+void print(int i) {
+	std::cout << ' ' << i;
+}
 
 int main () {
-  std::vector<int> myvector;
-  myvector.push_back(10);
-  myvector.push_back(20);
-  myvector.push_back(30);
+  int myints[] = {5,20,5,30,31,20,10,11,11};
+  std::vector<int> myvector (myints,myints+9);
+  std::vector<int>::iterator it;
+	
+  for_each(myvector.begin(), myvector.end(),print);
+  std::cout << "\n";	
+  
+  // using default comparison:
+  it = std::adjacent_find (myvector.begin(), myvector.end());
 
-  std::cout << "myvector contains:";
-  for_each (myvector.begin(), myvector.end(), myfunction);
-  std::cout << '\n';
+  if (it!=myvector.end())
+    std::cout << "the first pair of repeated elements are: " << *it << '\n';
 
-  // or:
-  std::cout << "myvector contains:";
-  for_each (myvector.begin(), myvector.end(), myobject);
-  std::cout << '\n';
+  //using predicate comparison:
+  it = std::adjacent_find (++it, myvector.end(), myfunction);
+
+  if (it!=myvector.end())
+    std::cout << "the second pair of repeated elements are: " << *it << '\n';
 
   return 0;
 }
