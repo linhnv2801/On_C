@@ -1,69 +1,42 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
-#include <cstdlib>
-#include <string>
-#include <stdexcept>
 
-using namespace std;
-
-template <class T>
-class Stack
-{
-  private:
-    vector<T> elements;
-
-  public:
-    void push(T const &);
-    void pop();
-    T top();
-    bool empty();
-};
-
-template <class T>
-void Stack<T>::push(T const &elem) {
-    elements.push_back(elem);
+template <class T> void swap(T& a, T& b){
+	T tmp(a);
+	a = b;
+	b = tmp;
 }
 
-template <class T>
-void Stack<T>::pop() {
-    if (elements.empty()) {
-        throw out_of_range("Stack<>::pop(): empty stack");
-    } else {
-        elements.pop_back();
-    }
+void print( int i){
+	std::cout << i << "\t";
 }
 
-template <class T>
-T Stack<T>::top() {
-    if (empty()) {
-        throw out_of_range("Stack<>::top(): empty stack");
+// Sum a vector of some type.
+// Example:
+// int total = sum({1,2,3,4,5});
+template <typename T>
+T sum(const std::vector<T>& vec) {
+    T total = T();
+    for (const T& x : vec) {
+        total += x;
     }
-    return elements.back();
+    return total;
 }
 
-template <class T>
-bool Stack<T>::empty() {
-    return elements.empty();
+template <typename T>
+T sum(const T x, T y){
+	return (x + y);
 }
 
-
-int main() {
-    try {
-        Stack<int> intStack;       // stack of ints
-        Stack<string> stringStack; // stack of strings
-
-        // manipulate integer stack
-        intStack.push(7);
-        cout << intStack.top() << endl;
-
-        // manipulate string stack
-        stringStack.push("hello");
-        cout << stringStack.top() << std::endl;
-        stringStack.pop();
-        stringStack.pop();
-    }
-    catch (exception const &ex) {
-        cerr << "Exception: " << ex.what() << endl;
-        return -1;
-    }
+int main(){
+	std::vector<int> v(4,100);
+	for_each(v.begin(), v.end(), print);
+	std::cout << "\n";
+	int total = sum(std::vector<int> (4,100));
+	std::cout << total << "\n";
+	std::cout << sum(3,4) << "\n";
+	std::cout << sum(3.9,4.6) << "\n";
+	
+	return 0;
 }
