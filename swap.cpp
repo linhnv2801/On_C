@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+//#include <vector>
 
 using namespace std;
 
@@ -11,7 +11,7 @@ void swap(int &x, int &y){
 
 int main(){
 	int x = 10, y = 20;
-	std::swap(x, y);
+	swap(x, y);
 	
 	cout << "x = " << x << "\t" << "y = " << y << "\n"; 
 	return 0;
