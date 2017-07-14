@@ -1,18 +1,16 @@
 #include <iostream>
 //#include <vector>
 
-using namespace std;
-
-void swap(int &x, int &y){
-	x ^= y;
-	y ^= x;
-	x ^= y;
+template <class T> swap(T& a, T& b){
+	T tmp(a);
+	a = b;
+	b = tmp;
 }
 
 int main(){
 	int x = 10, y = 20;
 	swap(x, y);
 	
-	cout << "x = " << x << "\t" << "y = " << y << "\n"; 
+	std::cout << "x = " << x << "\t" << "y = " << y << "\n"; 
 	return 0;
 }
