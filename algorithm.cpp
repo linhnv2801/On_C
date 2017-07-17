@@ -1,35 +1,19 @@
-// adjacent_find example
+// copy algorithm example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::adjacent_find
+#include <algorithm>    // std::copy
 #include <vector>       // std::vector
 
-bool myfunction (int i, int j) {
-  return (i==j);
-}
-
-void print(int i) {
-	std::cout << ' ' << i;
-}
-
 int main () {
-  int myints[] = {5,20,5,30,31,20,10,11,11};
-  std::vector<int> myvector (myints,myints+9);
-  std::vector<int>::iterator it;
-	
-  for_each(myvector.begin(), myvector.end(),print);
-  std::cout << "\n";	
-  
-  // using default comparison:
-  it = std::adjacent_find (myvector.begin(), myvector.end());
+  int myints[]={10,20,30,40,50,60,70};
+  std::vector<int> myvector (7);
 
-  if (it!=myvector.end())
-    std::cout << "the first pair of repeated elements are: " << *it << '\n';
+  std::copy ( myints, myints+6, myvector.begin());
 
-  //using predicate comparison:
-  it = std::adjacent_find (++it, myvector.end(), myfunction);
+  std::cout << "myvector contains:";
+  for (std::vector<int>::iterator it = myvector.begin(); it!=myvector.end(); ++it)
+    std::cout << ' ' << *it;
 
-  if (it!=myvector.end())
-    std::cout << "the second pair of repeated elements are: " << *it << '\n';
+  std::cout << '\n';
 
   return 0;
 }
