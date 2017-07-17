@@ -1,36 +1,36 @@
-// copy_backward example
-#include <iostream> // std::cout
-#include <algorithm> // std::copy_backward
-#include <vector> // std::vector
+// move algorithm example
+#include <iostream>     // std::cout
+#include <algorithm>    // std::move (ranges)
+#include <utility>      // std::move (objects)
+#include <vector>       // std::vector
+#include <string>       // std::string
 
-//template <class T>
-void print(float i){
-	std::cout << i << "\t";
-}
+int main () {
+  std::vector<std::string> foo = {"air","water","fire","earth"};
+  std::vector<std::string> bar (4);
 
-int main()
-{
-    std::vector<float> myvector;
+  // moving ranges:
+  std::cout << "Moving ranges...\n";
+  std::move ( foo.begin(), foo.begin()+4, bar.begin() );
 
-    // set some values:
-    for (float i = 1; i <= 5; i++)
-        myvector.push_back(i * 10); // myvector: 10 20 30 40 50
-    
-    std::cout << myvector.size() << "\n";
-    for_each(myvector.begin(),myvector.end(),print);
-    std::cout << "\n";
-    
-    std::cout << *(myvector.begin()) << "\n";
-    std::cout << *(--std::end(myvector)) << "\n";
+  std::cout << "foo contains " << foo.size() << " elements:";
+  std::cout << " (each in an unspecified but valid state)";
+  std::cout << '\n';
 
-    myvector.resize(myvector.size() + 3); // allocate space for 3 more elements
+  std::cout << "bar contains " << bar.size() << " elements:";
+  for (std::string& x: bar) std::cout << " [" << x << "]";
+  std::cout << '\n';
 
-    std::copy_backward(myvector.begin(), myvector.begin() + 8, myvector.end());
+  // moving container:
+  std::cout << "Moving container...\n";
+  foo = std::move (bar);
 
-    std::cout << "myvector contains:";
-    for (std::vector<float>::iterator it = myvector.begin(); it != myvector.end(); ++it)
-        std::cout << ' ' << *it;
-    std::cout << '\n';
+  std::cout << "foo contains " << foo.size() << " elements:";
+  for (std::string& x: foo) std::cout << " [" << x << "]";
+  std::cout << '\n';
 
-    return 0;
+  std::cout << "bar is in an unspecified but valid state";
+  std::cout << '\n';
+
+  return 0;
 }
