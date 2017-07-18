@@ -1,32 +1,25 @@
-// transform algorithm example
+// replace_copy example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::transform
+#include <algorithm>    // std::replace_copy
 #include <vector>       // std::vector
-#include <functional>   // std::plus
 
-int op_increase (int i) { return ++i; }
+void print(int i){
+	std::cout << i << "\t";
+}
 
 int main () {
-  std::vector<int> foo;
-  std::vector<int> bar;
+  int myints[] = { 10, 20, 30, 30, 20, 10, 10, 20 };
 
-  // set some values:
-  for (int i=1; i<6; i++)
-    foo.push_back (i*10);                         // foo: 10 20 30 40 50
+  std::vector<int> myvector (8);
+  std::replace_copy (myints, myints+8, myvector.begin(), 20, 99);
 
-  bar.resize(foo.size());                         // allocate space
-
-  std::transform (foo.begin(), foo.end(), bar.begin(), op_increase);
-                                                  // bar: 11 21 31 41 51
-
-  // std::plus adds together its two arguments:
-  std::transform (foo.begin(), foo.end(), bar.begin(), foo.begin(), std::plus<int>());
-                                                  // foo: 21 41 61 81 101
-
-  std::cout << "foo contains:";
-  for (std::vector<int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+  std::cout << "myvector contains:";
+  for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
     std::cout << ' ' << *it;
   std::cout << '\n';
+  
+  for_each(myvector.begin(), myvector.end(),print);
+  std::cout << "\n";
 
   return 0;
 }
