@@ -1,20 +1,32 @@
-// move_backward example
+// transform algorithm example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::move_backward
-#include <string>       // std::string
+#include <algorithm>    // std::transform
+#include <vector>       // std::vector
+#include <functional>   // std::plus
+
+int op_increase (int i) { return ++i; }
 
 int main () {
-	std::string elems[10] = {"air","water","fire","earth"};
+  std::vector<int> foo;
+  std::vector<int> bar;
 
-	std::cout << *(elems+3) << "\n";
-	// insert new element at the beginning:
-	std::move_backward (elems,elems+4,elems+5);
-	//elems[0]="ether";
+  // set some values:
+  for (int i=1; i<6; i++)
+    foo.push_back (i*10);                         // foo: 10 20 30 40 50
 
-	std::cout << "elems contains:";
-	for (int i=0; i<10; ++i)
-		std::cout << " [" << elems[i] << "]";
-	std::cout << '\n';
+  bar.resize(foo.size());                         // allocate space
 
-	return 0;
+  std::transform (foo.begin(), foo.end(), bar.begin(), op_increase);
+                                                  // bar: 11 21 31 41 51
+
+  // std::plus adds together its two arguments:
+  std::transform (foo.begin(), foo.end(), bar.begin(), foo.begin(), std::plus<int>());
+                                                  // foo: 21 41 61 81 101
+
+  std::cout << "foo contains:";
+  for (std::vector<int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
+  return 0;
 }
