@@ -1,25 +1,38 @@
-// replace_copy example
+// generate algorithm example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::replace_copy
+#include <algorithm>    // std::generate
 #include <vector>       // std::vector
+#include <ctime>        // std::time
+#include <cstdlib>      // std::rand, std::srand
 
-void print(int i){
-	std::cout << i << "\t";
-}
+// function generator:
+int RandomNumber () { return (std::rand()%100); }
+
+// class generator:
+struct c_unique {
+  int current;
+  c_unique() {current=0;}
+  int operator()() {return ++current;}
+} UniqueNumber;
 
 int main () {
-  int myints[] = { 10, 20, 30, 30, 20, 10, 10, 20 };
+  std::srand ( unsigned ( std::time(0) ) );
 
   std::vector<int> myvector (8);
-  std::replace_copy (myints, myints+8, myvector.begin(), 20, 99);
+
+  std::generate (myvector.begin(), myvector.end(), RandomNumber);
 
   std::cout << "myvector contains:";
   for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
     std::cout << ' ' << *it;
   std::cout << '\n';
-  
-  for_each(myvector.begin(), myvector.end(),print);
-  std::cout << "\n";
 
+  std::generate (myvector.begin(), myvector.end(), UniqueNumber);
+
+  std::cout << "myvector contains:";
+  for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+ 
   return 0;
 }
