@@ -1,38 +1,20 @@
-// generate algorithm example
+// remove algorithm example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::generate
-#include <vector>       // std::vector
-#include <ctime>        // std::time
-#include <cstdlib>      // std::rand, std::srand
-
-// function generator:
-int RandomNumber () { return (std::rand()%100); }
-
-// class generator:
-struct c_unique {
-  int current;
-  c_unique() {current=0;}
-  int operator()() {return ++current;}
-} UniqueNumber;
+#include <algorithm>    // std::remove
 
 int main () {
-  std::srand ( unsigned ( std::time(0) ) );
+  int myints[] = {10,20,30,30,20,10,10,20};      // 10 20 30 30 20 10 10 20
 
-  std::vector<int> myvector (8);
+  // bounds of range:
+  int* pbegin = myints;                          // ^
+  int* pend = myints+sizeof(myints)/sizeof(int); // ^                       ^
 
-  std::generate (myvector.begin(), myvector.end(), RandomNumber);
-
-  std::cout << "myvector contains:";
-  for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
-    std::cout << ' ' << *it;
+  pend = std::remove (pbegin, pend, 20);         // 10 30 30 10 10 ?  ?  ?
+                                                 // ^              ^
+  std::cout << "range contains:";
+  for (int* p=pbegin; p!=pend; ++p)
+    std::cout << ' ' << *p;
   std::cout << '\n';
 
-  std::generate (myvector.begin(), myvector.end(), UniqueNumber);
-
-  std::cout << "myvector contains:";
-  for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
-    std::cout << ' ' << *it;
-  std::cout << '\n';
- 
   return 0;
 }
