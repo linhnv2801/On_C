@@ -1,20 +1,13 @@
 #include <iostream>
-int foo(int x)
+ 
+int foo() // code starts at memory address 0x002717f0
 {
-    return x;
-}
-
-void print(int x){
-	std::cout << x << "\n";
+    return 5;
 }
  
 int main()
 {
-    int (*fcnPtr)(int) = foo; // assign fcnPtr to function foo
-    (*fcnPtr)(5); // call function foo(5) through fcnPtr.
-    
-    void (*p) (int) = print;
-    (*p)(6);
+    std::cout << reinterpret_cast<void*>(foo); // Tell C++ to interpret function foo as a void pointer
  
     return 0;
 }
