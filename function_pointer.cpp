@@ -1,17 +1,17 @@
-int foo()
-{
-    return 5;
-}
- 
-int goo()
-{
-    return 6;
-}
- 
+#include <iostream>
+// function prototypes
+int foo();
+double goo();
+int hoo(int x);
+
 int main()
 {
-    int (*fcnPtr)() = foo; // fcnPtr points to function foo
-    fcnPtr = goo; // fcnPtr now points to function goo
- 
-    return 0;
+	// function pointer assignments
+	int (*fcnPtr1)() = foo; // okay
+	//int (*fcnPtr2)() = goo; // wrong -- return types don't match!
+	double (*fcnPtr4)() = goo; // okay
+	//fcnPtr1 = hoo; // wrong -- fcnPtr1 has no parameters, but hoo() does
+	int (*fcnPtr3)(int) = hoo; // okay
+
+	return 0;
 }
