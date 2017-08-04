@@ -1,21 +1,22 @@
-// set::emplace_hint
+// set::find
 #include <iostream>
 #include <set>
-#include <string>
 
 int main ()
 {
-  std::set<std::string> myset;
-  auto it = myset.cbegin();
+  std::set<int> myset;
+  std::set<int>::iterator it;
 
-  myset.emplace_hint (it,"alpha");
-  it = myset.emplace_hint (myset.cend(),"omega");
-  it = myset.emplace_hint (it,"epsilon");
-  it = myset.emplace_hint (it,"beta");
+  // set some initial values:
+  for (int i=1; i<=5; i++) myset.insert(i*10);    // set: 10 20 30 40 50
+
+  it=myset.find(20);
+  myset.erase (it);
+  myset.erase (myset.find(40));
 
   std::cout << "myset contains:";
-  for (const std::string& x: myset)
-    std::cout << ' ' << x;
+  for (it=myset.begin(); it!=myset.end(); ++it)
+    std::cout << ' ' << *it;
   std::cout << '\n';
 
   return 0;
