@@ -1,33 +1,22 @@
-// set::insert (C++98)
+// set::emplace_hint
 #include <iostream>
 #include <set>
+#include <string>
 
 int main ()
 {
-  std::set<int> myset;
-  std::set<int>::iterator it;
-  std::pair<std::set<int>::iterator,bool> ret;
+  std::set<std::string> myset;
+  auto it = myset.cbegin();
 
-  // set some initial values:
-  for (int i=1; i<=5; ++i) myset.insert(i*10);    // set: 10 20 30 40 50
-
-  ret = myset.insert(20);               // no new element inserted
-
-  if (ret.second==false) it=ret.first;  // "it" now points to element 20
-
-  myset.insert (it,25);                 // max efficiency inserting
-  myset.insert (it,24);                 // max efficiency inserting
-  myset.insert (it,26);                 // no max efficiency inserting
-
-  int myints[]= {5,10,15};              // 10 already in set, not inserted
-  myset.insert (myints,myints+3);
+  myset.emplace_hint (it,"alpha");
+  it = myset.emplace_hint (myset.cend(),"omega");
+  it = myset.emplace_hint (it,"epsilon");
+  it = myset.emplace_hint (it,"beta");
 
   std::cout << "myset contains:";
-  for (it=myset.begin(); it!=myset.end(); ++it)
-    std::cout << ' ' << *it;
+  for (const std::string& x: myset)
+    std::cout << ' ' << x;
   std::cout << '\n';
 
   return 0;
 }
-Edit & Run
-
