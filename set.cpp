@@ -1,34 +1,33 @@
-// constructing sets
+// set::insert (C++98)
 #include <iostream>
 #include <set>
-#include <iostream>
-#include <algorithm>
-
-bool fncomp (int lhs, int rhs) {return lhs<rhs;}
-void print(int x){std::cout << x << "\t";}
-
-struct classcomp {
-  bool operator() (const int& lhs, const int& rhs) const
-  {return lhs<rhs;}
-};
 
 int main ()
 {
-  std::set<int> first;                           // empty set of ints
+  std::set<int> myset;
+  std::set<int>::iterator it;
+  std::pair<std::set<int>::iterator,bool> ret;
 
-  int myints[]= {10,20,30,40,50};
-  std::set<int> second (myints,myints+5);        // range
-  for_each(second.begin(), second.end(),print);
-  std::cout << "\n";
+  // set some initial values:
+  for (int i=1; i<=5; ++i) myset.insert(i*10);    // set: 10 20 30 40 50
 
-  std::set<int> third (second);                  // a copy of second
+  ret = myset.insert(20);               // no new element inserted
 
-  std::set<int> fourth (second.begin(), second.end());  // iterator ctor.
+  if (ret.second==false) it=ret.first;  // "it" now points to element 20
 
-  std::set<int,classcomp> fifth;                 // class as Compare
+  myset.insert (it,25);                 // max efficiency inserting
+  myset.insert (it,24);                 // max efficiency inserting
+  myset.insert (it,26);                 // no max efficiency inserting
 
-  bool(*fn_pt)(int,int) = fncomp;
-  std::set<int,bool(*)(int,int)> sixth (fn_pt);  // function pointer as Compare
+  int myints[]= {5,10,15};              // 10 already in set, not inserted
+  myset.insert (myints,myints+3);
+
+  std::cout << "myset contains:";
+  for (it=myset.begin(); it!=myset.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
 
   return 0;
 }
+Edit & Run
+
