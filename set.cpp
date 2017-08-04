@@ -1,22 +1,23 @@
-// set::count
+// set::lower_bound/upper_bound
 #include <iostream>
 #include <set>
 
 int main ()
 {
   std::set<int> myset;
+  std::set<int>::iterator itlow,itup;
 
-  // set some initial values:
-  for (int i=1; i<5; ++i) myset.insert(i*3);    // set: 3 6 9 12
+  for (int i=1; i<10; i++) myset.insert(i*10); // 10 20 30 40 50 60 70 80 90
 
-  for (int i=0; i<10; ++i)
-  {
-    std::cout << i;
-    if (myset.count(i)!=0)
-      std::cout << " is an element of myset.\n";
-    else
-      std::cout << " is not an element of myset.\n";
-  }
+  itlow=myset.lower_bound (30);                //       ^
+  itup=myset.upper_bound (75);                 //                   ^
+
+  myset.erase(itlow,itup);                     // 10 20 70 80 90
+
+  std::cout << "myset contains:";
+  for (std::set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
 
   return 0;
 }
