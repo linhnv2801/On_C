@@ -1,23 +1,53 @@
-// set::lower_bound/upper_bound
+// constructing sets
 #include <iostream>
 #include <set>
+#include <algorithm>
+
+bool fncomp (int lhs, int rhs) {return lhs<rhs;}
+
+class classcomp {
+	bool reverse;
+public:
+	classcomp(const bool& revparam = false){
+		reverse = revparam;
+	}
+	bool operator() (const int& lhs, const int& rhs) const
+	{if(reverse) return lhs>rhs;
+	else return lhs<rhs;}
+};
+
+void print(int x){
+	std::cout << x << "\t";
+}
+
+template <class T>
+void printT(T t){
+	for_each(t.begin(), t.end(), print);
+	std::cout << "\n";
+}
 
 int main ()
 {
-  std::set<int> myset;
-  std::set<int>::iterator itlow,itup;
+	std::set<int> first;                           // empty set of ints
 
-  for (int i=1; i<10; i++) myset.insert(i*10); // 10 20 30 40 50 60 70 80 90
+	int myints[]= {10,20,30,40,50};
+	std::set<int> second (myints,myints+5);        // range
 
-  itlow=myset.lower_bound (30);                //       ^
-  itup=myset.upper_bound (75);                 //                   ^
+	std::set<int> third (second);                  // a copy of second
 
-  myset.erase(itlow,itup);                     // 10 20 70 80 90
+	std::set<int> fourth (second.begin(), second.end());  // iterator ctor.
 
-  std::cout << "myset contains:";
-  for (std::set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
-    std::cout << ' ' << *it;
-  std::cout << '\n';
+	std::set<int,classcomp> fifth;                 // class as Compare
 
-  return 0;
+	bool(*fn_pt)(int,int) = fncomp;
+	std::set<int,bool(*)(int,int)> sixth (fn_pt);  // function pointer as Compare
+	sixth.emplace(10),	sixth.emplace(30),	sixth.emplace(20);
+	printT(sixth);
+	
+	typedef std::set<int,classcomp> mytype;
+	mytype seventh(classcomp(true));
+	seventh.emplace(10),seventh.emplace(30),seventh.emplace(20);
+	
+	printT(seventh);
+	return 0;
 }
