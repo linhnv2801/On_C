@@ -1,44 +1,31 @@
-// random_shuffle example
+// shuffle algorithm example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::random_shuffle
-#include <vector>       // std::vector
-#include <ctime>        // std::time
-#include <cstdlib>      // std::rand, std::srand
+#include <algorithm>    // std::shuffle
+#include <array>        // std::array
+#include <random>       // std::default_random_engine
+#include <chrono>       // std::chrono::system_clock
 
-namespace test{
-	template <class RandomAccessIterator, class RandomNumberGenerator>
-	  void random_shuffle (RandomAccessIterator first, RandomAccessIterator last,
-	                       RandomNumberGenerator& gen)
+namespace test {
+	template <class RandomAccessIterator, class URNG>
+	void shuffle (RandomAccessIterator first, RandomAccessIterator last, URNG&& g)
 	{
-	  typename std::iterator_traits<RandomAccessIterator>::difference_type i, n;
-	  n = (last-first);
-	  for (i=n-1; i>0; --i) {
-	    std::swap (first[i],first[gen(i+1)]);
+	  for (auto i=(last-first)-1; i>0; --i) {
+	    std::uniform_int_distribution<decltype(i)> d(0,i);
+	    swap (first[i], first[d(g)]);
 	  }
 	}
 }
 
-// random generator function:
-int myrandom (int i) { return std::rand()%i;}
-
 int main () {
-  std::srand ( unsigned ( std::time(0) ) );
-  std::vector<int> myvector;
+  std::array<int,5> foo {1,2,3,4,5};
 
-  // set some values:
-  for (int i=1; i<10; ++i) myvector.push_back(i); // 1 2 3 4 5 6 7 8 9
+  // obtain a time-based seed:
+  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-  // using built-in random generator:
-  std::random_shuffle ( myvector.begin(), myvector.end() );
+  shuffle (foo.begin(), foo.end(), std::default_random_engine(seed));
 
-  // using myrandom:
-  test::random_shuffle ( myvector.begin(), myvector.end(), myrandom);
-
-  // print out content:
-  std::cout << "myvector contains:";
-  for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
-    std::cout << ' ' << *it;
-
+  std::cout << "shuffled elements:";
+  for (int& x: foo) std::cout << ' ' << x;
   std::cout << '\n';
 
   return 0;
