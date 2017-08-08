@@ -1,44 +1,50 @@
-// is_partitioned example
+// partition algorithm example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::is_partitioned
-#include <array>        // std::array
+#include <algorithm>    // std::partition
+#include <vector>       // std::vector
 
-namespace algorithm{
-	template <class InputIterator, class UnaryPredicate>
-	  bool is_partitioned (InputIterator first, InputIterator last, UnaryPredicate pred)
+namespace algorithm {
+	template <class BidirectionalIterator, class UnaryPredicate>
+	  BidirectionalIterator partition (BidirectionalIterator first,
+	                                   BidirectionalIterator last, UnaryPredicate pred)
 	{
-	  while (first!=last && pred(*first)) {
-	    ++first;
-	  }
 	  while (first!=last) {
-	    if (pred(*first)) return false;
+	    while (pred(*first)) {
+	      ++first;
+	      if (first==last) return first;
+	    }
+	    do {
+	      --last;
+	      if (first==last) return first;
+	    } while (!pred(*last));
+	    swap (*first,*last);
 	    ++first;
 	  }
-	  return true;
+	  return first;
 	}
 }
 
 bool IsOdd (int i) { return (i%2)==1; }
 
 int main () {
-  std::array<int,7> foo {1,2,3,4,5,6,7};
+  std::vector<int> myvector;
 
-  // print contents:
-  std::cout << "foo:"; for (int& x:foo) std::cout << ' ' << x;
-  if ( algorithm::is_partitioned(foo.begin(),foo.end(),IsOdd) )
-    std::cout << " (partitioned)\n";
-  else
-    std::cout << " (not partitioned)\n";
+  // set some values:
+  for (int i=1; i<10; ++i) myvector.push_back(i); // 1 2 3 4 5 6 7 8 9
 
-  // partition array:
-  std::partition (foo.begin(),foo.end(),IsOdd);
+  std::vector<int>::iterator bound;
+  bound = std::partition (myvector.begin(), myvector.end(), IsOdd);
 
-  // print contents again:
-  std::cout << "foo:"; for (int& x:foo) std::cout << ' ' << x;
-  if ( algorithm::is_partitioned(foo.begin(),foo.end(),IsOdd) )
-    std::cout << " (partitioned)\n";
-  else
-    std::cout << " (not partitioned)\n";
+  // print out content:
+  std::cout << "odd elements:";
+  for (std::vector<int>::iterator it=myvector.begin(); it!=bound; ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
+  std::cout << "even elements:";
+  for (std::vector<int>::iterator it=bound; it!=myvector.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
 
   return 0;
 }
