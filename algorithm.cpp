@@ -1,32 +1,44 @@
-// shuffle algorithm example
+// is_partitioned example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::shuffle
+#include <algorithm>    // std::is_partitioned
 #include <array>        // std::array
-#include <random>       // std::default_random_engine
-#include <chrono>       // std::chrono::system_clock
 
-namespace test {
-	template <class RandomAccessIterator, class URNG>
-	void shuffle (RandomAccessIterator first, RandomAccessIterator last, URNG&& g)
+namespace algorithm{
+	template <class InputIterator, class UnaryPredicate>
+	  bool is_partitioned (InputIterator first, InputIterator last, UnaryPredicate pred)
 	{
-	  for (auto i=(last-first)-1; i>0; --i) {
-	    std::uniform_int_distribution<decltype(i)> d(0,i);
-	    swap (first[i], first[d(g)]);
+	  while (first!=last && pred(*first)) {
+	    ++first;
 	  }
+	  while (first!=last) {
+	    if (pred(*first)) return false;
+	    ++first;
+	  }
+	  return true;
 	}
 }
 
+bool IsOdd (int i) { return (i%2)==1; }
+
 int main () {
-  std::array<int,5> foo {1,2,3,4,5};
+  std::array<int,7> foo {1,2,3,4,5,6,7};
 
-  // obtain a time-based seed:
-  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  // print contents:
+  std::cout << "foo:"; for (int& x:foo) std::cout << ' ' << x;
+  if ( algorithm::is_partitioned(foo.begin(),foo.end(),IsOdd) )
+    std::cout << " (partitioned)\n";
+  else
+    std::cout << " (not partitioned)\n";
 
-  shuffle (foo.begin(), foo.end(), std::default_random_engine(seed));
+  // partition array:
+  std::partition (foo.begin(),foo.end(),IsOdd);
 
-  std::cout << "shuffled elements:";
-  for (int& x: foo) std::cout << ' ' << x;
-  std::cout << '\n';
+  // print contents again:
+  std::cout << "foo:"; for (int& x:foo) std::cout << ' ' << x;
+  if ( algorithm::is_partitioned(foo.begin(),foo.end(),IsOdd) )
+    std::cout << " (partitioned)\n";
+  else
+    std::cout << " (not partitioned)\n";
 
   return 0;
 }
