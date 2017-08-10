@@ -1,41 +1,49 @@
-// partition_point example
+// sort algorithm example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::partition, std::partition_point
+#include <algorithm>    // std::sort
 #include <vector>       // std::vector
 
-namespace algorithm{
-	template <class ForwardIterator, class UnaryPredicate>
-	  ForwardIterator partition_point (ForwardIterator first, ForwardIterator last,
-	                                   UnaryPredicate pred)
-	{
-	  auto n = distance(first,last);
-	  while (n>0)
-	  {
-	    ForwardIterator it = first;
-	    auto step = n/2;
-	    std::advance (it,step);
-	    if (pred(*it)) { first=++it; n-=step+1; }
-	    else n=step;
-	  }
-	  return first;
-	}
+bool myfunction (int i,int j)
+{
+    return (i<j);
 }
 
-bool IsOdd (int i) { return (i%2)==1; }
+struct myclass
+{
+    bool operator() (int i,int j)
+    {
+        return (i<j);
+    }
+} myobject;
 
-int main () {
-  std::vector<int> foo {1,2,3,4,5,6,7,8,9};
-  std::vector<int> odd;
+void print(int x)
+{
+    std::cout << x << "\t";
+}
 
-  std::partition (foo.begin(),foo.end(),IsOdd);
+template <class T>
+void printT(T t){
+	for_each(t.begin(), t.end(), print);
+	std::cout << "\n";
+}
 
-  auto it = std::partition_point(foo.begin(),foo.end(),IsOdd);
-  odd.assign (foo.begin(),it);
+int main ()
+{
+    int myints[] = {32,71,12,45,26,80,53,33};
+    std::vector<int> myvector (myints, myints+8);               // 32 71 12 45 26 80 53 33
 
-  // print contents of odd:
-  std::cout << "odd:";
-  for (int& x:odd) std::cout << ' ' << x;
-  std::cout << '\n';
+    // using default comparison (operator <):
+    std::sort (myvector.begin(), myvector.begin()+4);           //(12 32 45 71)26 80 53 33
 
-  return 0;
+    // using function as comp
+    std::sort (myvector.begin()+4, myvector.end(), myfunction); // 12 32 45 71(26 33 53 80)
+
+    // using object as comp
+    std::sort (myvector.begin(), myvector.end(), myobject);     //(12 26 32 33 45 53 71 80)
+
+    // print out content:
+    std::cout << "myvector contains:";
+    printT(myvector);
+
+    return 0;
 }
