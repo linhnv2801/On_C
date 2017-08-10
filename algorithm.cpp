@@ -8,22 +8,30 @@ bool myfunction (int i,int j)
     return (i<j);
 }
 
-struct myclass
+class classcomp
 {
-    bool operator() (int i,int j)
+private:
+	bool reverse;
+public:
+	classcomp(const bool& revparam = false){
+		reverse = revparam;
+	}		
+    bool operator() (int i,int j) const
     {
-        return (i<j);
+    	if(reverse) return (i>j);
+		else return (i<j);
     }
-} myobject;
+};
 
-void print(int x)
+template <typename T>
+void print0(T x)
 {
     std::cout << x << "\t";
 }
 
-template <class T>
-void printT(T t){
-	for_each(t.begin(), t.end(), print);
+template <typename T>
+void print(const std::vector<T> t){
+	for_each(t.begin(), t.end(), print0);
 	std::cout << "\n";
 }
 
@@ -39,11 +47,11 @@ int main ()
     std::sort (myvector.begin()+4, myvector.end(), myfunction); // 12 32 45 71(26 33 53 80)
 
     // using object as comp
-    std::sort (myvector.begin(), myvector.end(), myobject);     //(12 26 32 33 45 53 71 80)
+    std::sort (myvector.begin(), myvector.end(), classcomp(true));     //(12 26 32 33 45 53 71 80)
 
     // print out content:
-    std::cout << "myvector contains:";
-    printT(myvector);
-
+    std::cout << "myvector contains: ";
+    print(myvector);
+    
     return 0;
 }
