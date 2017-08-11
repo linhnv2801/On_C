@@ -1,38 +1,21 @@
-// is_sorted example
+// merge algorithm example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::is_sorted, std::prev_permutation
-#include <array>        // std::array
-
-namespace algorithm{
-	template <class ForwardIterator>
-	  bool is_sorted (ForwardIterator first, ForwardIterator last)
-	{
-	  if (first==last) return true;
-	  ForwardIterator next = first;
-	  while (++next!=last) {
-	    if (*next<*first)     // or, if (comp(*next,*first)) for version (2)
-	      return false;
-	    ++first;
-	  }
-	  return true;
-	}
-}
+#include <algorithm>    // std::merge, std::sort
+#include <vector>       // std::vector
 
 int main () {
-  std::array<int,4> foo {2,4,1,3};
+  int first[] = {5,10,15,20,25};
+  int second[] = {50,40,30,20,10};
+  std::vector<int> v(10);
 
-  do {
-    // try a new permutation:
-    std::prev_permutation(foo.begin(),foo.end());
+  std::sort (first,first+5);
+  std::sort (second,second+5);
+  std::merge (first,first+5,second,second+5,v.begin());
 
-    // print range:
-    std::cout << "foo:";
-    for (int& x:foo) std::cout << ' ' << x;
-    std::cout << '\n';
-
-  } while (!std::is_sorted(foo.begin(),foo.end()));
-
-  std::cout << "the range is sorted!\n";
+  std::cout << "The resulting vector contains:";
+  for (std::vector<int>::iterator it=v.begin(); it!=v.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
 
   return 0;
 }
