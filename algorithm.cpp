@@ -1,38 +1,38 @@
-// partial_sort example
+// is_sorted example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::partial_sort
-#include <vector>       // std::vector
+#include <algorithm>    // std::is_sorted, std::prev_permutation
+#include <array>        // std::array
 
-bool myfunction (int i,int j) { return (i>j); }
-
-void print0(int x)
-{
-    std::cout << x << "\t";
-}
-
-template <typename T>
-void print(const std::vector<T> t){
-	for_each(t.begin(), t.end(), print0);
-	std::cout << "\n";
+namespace algorithm{
+	template <class ForwardIterator>
+	  bool is_sorted (ForwardIterator first, ForwardIterator last)
+	{
+	  if (first==last) return true;
+	  ForwardIterator next = first;
+	  while (++next!=last) {
+	    if (*next<*first)     // or, if (comp(*next,*first)) for version (2)
+	      return false;
+	    ++first;
+	  }
+	  return true;
+	}
 }
 
 int main () {
-  int myints[] = {9,8,7,6,5,4,3,2,1};
-  std::vector<int> myvector (myints, myints+sizeof(myints)/sizeof(int));
+  std::array<int,4> foo {2,4,1,3};
 
-  // using default comparison (operator <):
-  std::partial_sort (myvector.begin(), myvector.begin()+5, myvector.end());
+  do {
+    // try a new permutation:
+    std::prev_permutation(foo.begin(),foo.end());
 
-  // print out content:
-  std::cout << "myvector contains:";
-  print(myvector);
+    // print range:
+    std::cout << "foo:";
+    for (int& x:foo) std::cout << ' ' << x;
+    std::cout << '\n';
 
-  // using function as comp
-  std::partial_sort (myvector.begin(), myvector.begin()+5, myvector.end(),myfunction);
+  } while (!std::is_sorted(foo.begin(),foo.end()));
 
-  // print out content:
-  std::cout << "myvector contains:";
-  print(myvector);
+  std::cout << "the range is sorted!\n";
 
   return 0;
 }
