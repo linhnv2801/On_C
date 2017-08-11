@@ -1,30 +1,11 @@
-// sort algorithm example
+// partial_sort example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::sort
+#include <algorithm>    // std::partial_sort
 #include <vector>       // std::vector
 
-bool myfunction (int i,int j)
-{
-    return (i<j);
-}
+bool myfunction (int i,int j) { return (i>j); }
 
-class classcomp
-{
-private:
-	bool reverse;
-public:
-	classcomp(const bool& revparam = false){
-		reverse = revparam;
-	}		
-    bool operator() (int i,int j) const
-    {
-    	if(reverse) return (i>j);
-		else return (i<j);
-    }
-};
-
-template <typename T>
-void print0(T x)
+void print0(int x)
 {
     std::cout << x << "\t";
 }
@@ -35,23 +16,23 @@ void print(const std::vector<T> t){
 	std::cout << "\n";
 }
 
-int main ()
-{
-    int myints[] = {32,71,12,45,26,80,53,33};
-    std::vector<int> myvector (myints, myints+8);               // 32 71 12 45 26 80 53 33
+int main () {
+  int myints[] = {9,8,7,6,5,4,3,2,1};
+  std::vector<int> myvector (myints, myints+sizeof(myints)/sizeof(int));
 
-    // using default comparison (operator <):
-    std::sort (myvector.begin(), myvector.begin()+4);           //(12 32 45 71)26 80 53 33
+  // using default comparison (operator <):
+  std::partial_sort (myvector.begin(), myvector.begin()+5, myvector.end());
 
-    // using function as comp
-    std::sort (myvector.begin()+4, myvector.end(), myfunction); // 12 32 45 71(26 33 53 80)
+  // print out content:
+  std::cout << "myvector contains:";
+  print(myvector);
 
-    // using object as comp
-    std::sort (myvector.begin(), myvector.end(), classcomp(true));     //(12 26 32 33 45 53 71 80)
+  // using function as comp
+  std::partial_sort (myvector.begin(), myvector.begin()+5, myvector.end(),myfunction);
 
-    // print out content:
-    std::cout << "myvector contains: ";
-    print(myvector);
-    
-    return 0;
+  // print out content:
+  std::cout << "myvector contains:";
+  print(myvector);
+
+  return 0;
 }
