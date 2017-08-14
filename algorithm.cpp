@@ -1,26 +1,37 @@
-// inplace_merge example
+// includes algorithm example
 #include <iostream>     // std::cout
-#include <algorithm>    // std::inplace_merge, std::sort, std::copy
-#include <vector>       // std::vector
+#include <algorithm>    // std::includes, std::sort
+
+namespace algorithm {
+	template <class InputIterator1, class InputIterator2>
+	  bool includes (InputIterator1 first1, InputIterator1 last1,
+	                 InputIterator2 first2, InputIterator2 last2)
+	{
+	  while (first2!=last2) {
+	    if ( (first1==last1) || (*first2<*first1) ) return false;
+	    if (!(*first1<*first2)) ++first2;
+	    ++first1;
+	  }
+	  return true;
+	}
+}
+
+bool myfunction (int i, int j) { return i>j; }
 
 int main () {
-  int first[] = {5,10,15,20,25};
-  int second[] = {50,40,30,20,10};
-  std::vector<int> v(10);
-  std::vector<int>::iterator it;
+  int container[] = {5,10,15,20,25,30,35,40,45,50};
+  int continent[] = {40,30,25,10};
 
-  std::sort (first,first+5);
-  std::sort (second,second+5);
+  std::sort (container,container+10, myfunction);
+  std::sort (continent,continent+4, myfunction);
 
-  it=std::copy (first, first+5, v.begin());
-     std::copy (second,second+5,it);
+  // using default comparison:
+  if ( std::includes(container,container+10,continent,continent+4) )
+    std::cout << "container includes continent!\n";
 
-  std::inplace_merge (v.begin(),v.begin()+5,v.end());
-
-  std::cout << "The resulting vector contains:";
-  for (it=v.begin(); it!=v.end(); ++it)
-    std::cout << ' ' << *it;
-  std::cout << '\n';
+  // using myfunction as comp:
+  if ( std::includes(container,container+10,continent,continent+4, myfunction) )
+    std::cout << "container includes continent!\n";
 
   return 0;
 }
