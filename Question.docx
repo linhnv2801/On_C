@@ -1,0 +1,91 @@
+﻿1. Có bao nhiêu cách để khởi tạo một kiểu dữ liệu nguyên thủy trong C++ và đó là những cách nào? 
+2. Tại sao bạn nên khai báo một hàm hủy là ảo (virtual)? 
+3. Nó có nghĩa gì khi nói rằng C++ hỗ trợ overloading (nạp chồng)? 
+4. Nêu ra một số ví dụ về overloading trong C++? 
+5. Khái niệm name mangling trong C++ có nghĩa là gì và tại sao nó lại được sử dụng? 
+6. Một lớp trừu tượng cơ sở (abstract base) có nghĩa là gì? 
+7. RTTI có nghĩa là gì? 
+8. Làm thế nào để bạn có thể truy cập một biến mà nó bị “che khuất” bởi một biến khác có cùng tên? 
+9. Khái niệm namespace có nghĩa là gì và làm thế nào để sử dụng nó? 
+10. Điểm khác nhau giữa một lớp và một cấu trúc (struct) trong C++ là gì, và so sánh với ngôn ngữ C thì như thế nào? 
+11. Khái niệm template là gì? Làm thế nào để sử dụng chúng? 
+12. Một hàm tạo sao chép (copy constructor) có nghĩa là gì và khi nào thì nó được sử dụng, đặc biệt là khi so sánh với toán tử = 
+13. Điểm khác nhau giữa một sao chép “shallow” và “deep” là gì? 
+14. Hằng toán tử (const operator) nghĩa là gì và nó được sử dụng như thế nào? 
+15. Điểm khác nhau giữa truyền tham chiếu, truyền tham trị, và truyền bởi con trỏ trong C++ là gì? 
+16. Khi nào thì nên và khi nào thì không nên trả về một giá trị bởi tham chiếu trong C++? 
+17. Điểm khác nhau giữa một biến tạo ra trên ngăn xếp (stack) và một biến tạo ra trên heap là gì? 
+18. Làm thế nào để bạn giải phóng bộ nhớ đã cấp phát động cho một mảng? 
+19. Đa kế thừa là gì? Khi nào thì nó nên được sử dụng? 
+20. Một hàm ảo thuần túy (pure virtual) là gì? 
+21. Từ khóa mutable có ý nghĩa gì? 
+22. Từ khóa volatile có ý nghĩa gì? 
+23. Khái niệm STL có nghĩa là gì? 
+24. Khái niệm Vector có nghĩa là gì? 
+25. Cái gì được chứa strong phần header <algorithms>? 
+26. Điểm khác nhau giữa #include <iostream.h> và #include <iostream> là gì? 
+27. Điểm khác nhau giữa “++i” and “i++” là gì? 
+28. Ước lượng short circuit có nghĩa là gì? Nó được sử dụng như thế nào? Tại sao việc sử dụng nó có thể gây nguy hiểm? 
+29. Toán tử ‘,’ có ý nghĩa gì? 
+30. Toán tử tam nguyên có nghĩa là gì? Cách sử dụng nó như thế nào? 
+31. Hàm hằng thành viên (const member) có nghĩa là gì và nó được sử dụng như thế nào? 
+32. Làm thế nào để sử dụng try/catch trong C++? 
+33. Tại sao bạn đừng bao giờ ném ra một ngoại lệ trong một hàm hủy? 
+34. Từ khóa explicit có ý nghĩa gì? 
+35. Đâu là cách đúng để thực thi một ép kiểu trong C++? 
+36. Khái niệm inline có nghĩa là gì? 
+
+http://vncoding.net/tuyen-tap-200-cau-hoi-phong-van-lap-trinh-cc/
+
+Ngôn ngữ lập trình C
+1. Phân biệt Syntax-error, Runtime-error and Logical error?
+2. Complier and linker là gì?
+3. Vòng lặp vô hạn là gì?
+4. Biến static, extern là gì?
+5. Hàm sprintf() được sử dụng trong trường hợp nào?
+6. Sư khác nhau giữa memcpy và strcpy?
+7. Sự khác nhau giữa memcpy() và memmove()?
+8.  Sự khác nhau giữa truyền giá trị và truyền tham biến (con trỏ và tham chiếu)?
+9. Memory leak là gì? Cách tránh memory leak?
+10. Ưu và nhược điểm khi sử dụng mảng trong ngôn ngữ C?
+11. Sự khác nhau giữa cấp phát tĩnh và cấp phát động?
+12. Sự khác nhau giữa const char* s và char* const s?
+13. Sự khác nhau giữa mảng và chuỗi?
+14. Con trỏ void là gì?
+15. Sự khác nhau giữa malloc() và calloc()?
+16. Sự khác nhau giữa việc #include và  #include “xxx.h”?
+17. Từ khóa auto có ý nghĩa gì?
+Đáp án 
+18. Sử dụng macro hay function tốt hơn?
+19. Sự khác nhau giữa kích thước của biến con trỏ int* và biến con trỏ char* ?
+Đáp án 
+20. Sự khác nhau giữa struct và union?
+21. Sự khác nhau giữa #define và const?
+22. Sự khác nhau giữa bộ nhớ stack và heap?
+23. Sự khác nhau giữa hàm strdup() và strcpy()?
+22. Sự khác nhau giữa mảng và link list?
+23. Mảng con trỏ là gì? Ứng dụng của mảng con trỏ?
+24. Con trỏ hàm là gì? Ứng dụng con trỏ hàm?
+25. Con trỏ gần(near pointer) là gì?
+26. Con trỏ xa (far pointer) là gì?
+27. Alignment struct là gì?
+29. Mối liên hệ giữa con trỏ và mảng 1 chiều?
+30. Mối liên hệ giữa con trỏ và mảng 2 chiều?
+31. Macro là gì? Ưu và nhược điểm khi sử dụng macro?
+32. Sự khác nhau giữa ++x và x++ trong C/C++?
+33. Tại sao keyword default và break được sử dụng trong lệnh switch case?
+34. Nên sử dụng switch case hay if else?
+35. Sử dụng hàm nào an toàn hơn trong 2 hàm fgets() và gets()?
+36. Những ưu điểm khi sử dụng enum thay vì sử dụng #define?
+37. Từ khóa #prama là gì?
+38. Viết con trỏ tương ứng với giá trị mảng a[i][j][k][m]?
+39. Sự khác nhau giữa const và volatite?
+40. Tại sao nên gán NULL cho con trỏ sau khi giải phóng vùng nhớ?
+41. Sự khác nhau giữa linker và linkage?
+42. Sự khác nhau giữa malloc() và new()?
+43. Liệt kê và giải thích các thuộc tính của OOP?
+44. Hàm inline() là gì?
+45. Hàm tạo, hàm hủy là gì?
+46. Hàm hủy ảo (virtual destructor) là gì?
+47. Hàm tạo copy  là gì? Khi nào hàm tạo copy được gọi?
+
